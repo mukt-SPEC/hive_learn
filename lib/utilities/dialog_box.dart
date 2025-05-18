@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive_learn/utilities/button.dart';
 
-class  DialogBox extends StatelessWidget {
+class DialogBox extends StatelessWidget {
   final dynamic controller;
-  const DialogBox({super.key, this.controller});
+  final VoidCallback onsave;
+  const DialogBox({super.key, this.controller, required this.onsave});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +13,7 @@ class  DialogBox extends StatelessWidget {
       child: Column(
         children: [
           TextField(
+            controller: controller,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'New Task',
@@ -19,18 +22,24 @@ class  DialogBox extends StatelessWidget {
           ),
           Row(
             children: [
-              ElevatedButton(onPressed: () {}, child: const Text('Add Task')),
-              ElevatedButton(
+              Appbutton(
+                buttonText: 'Add Task',
                 onPressed: () {
-                  Navigator.pop(context);
+                  onsave();
+                  Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+              ),
+
+              Appbutton(
+                buttonText: 'Cancel',
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ],
           ),
         ],
       ),
     );
-    
   }
 }
